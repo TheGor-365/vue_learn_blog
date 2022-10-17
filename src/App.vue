@@ -1,35 +1,42 @@
 <template>
-  <DIV>
-    <div>
-      <button v-on:click="addLike">Like</button>
-      <button v-on:click="addDislike">Dislike</button>
-    </div>
-    <div>
-      Likes count <strong>{{ likes }}</strong>
-      Dislikes count <strong>{{ dislikes }}</strong>
-    </div>
-  </DIV>
+  <div class="app">
+    <post-form @create="createPost"/>
+    <post-list :posts="posts"/>
+  </div>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        likes: 0,
-        dislikes: 5,
-      }
-    },
-    methods: {
-      addLike() {
-        this.likes += 1;
-      },
-      addDislike() {
-        this.dislikes += 1;
-      }
+import PostForm from "@/components/PostForm";
+import PostList from "@/components/PostList";
+export default {
+  components: {
+    PostList, PostForm
+  },
+  data() {
+    return {
+      posts: [
+        {id: 1, title: 'JavaScript', body: 'About language'},
+        {id: 2, title: 'JavaScript 2', body: 'About language 2'},
+        {id: 3, title: 'JavaScript 3', body: 'About language 3'},
+      ],
     }
+  },
+  methods: {
+    createPost(post) {
+      this.posts.push(post);
+    },
   }
+}
 </script>
 
 <style>
+  .app {
+    padding: 20px;
+  }
 
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 </style>
